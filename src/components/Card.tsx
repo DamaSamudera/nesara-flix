@@ -16,7 +16,7 @@ const Card: FC<ICard> = (props) => {
   const { data } = props;
   const [like, setLike] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [saved, setSaved] = useState(false);
+  const [, setSaved] = useState(false);
   const { user } = useAuthContext();
 
   const movieID = doc(db, "users", `${user?.email}`);
