@@ -27,8 +27,8 @@ const FormAuth: FC<IFormAuth> = (props) => {
         placeholder="Password"
         autoComplete="current-password"
       />
-      <Button className=" w-full bg-red-600 my-10 text-center text-white">
-        <p className="text-center">{type === "signUp" ? "Sign Up" : "Sign In"}</p>
+      <Button className="w-full bg-orange-200 my-10 text-center text-black">
+        <p className="w-full text-center mx-100">{type === "signUp" ? "Sign Up" : "Sign In"}</p>
       </Button>
       <div className="flex justify-between items-center text-sm text-gray-600">
         <p>
