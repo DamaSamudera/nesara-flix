@@ -38,7 +38,11 @@ const FavoriteMovie = () => {
         savedShows: result,
       });
     } catch (error) {
-      toast.error(error);
+      if (error instanceof Error) {
+        toast.error(error.message);
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
   };
 
