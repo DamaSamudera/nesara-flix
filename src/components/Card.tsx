@@ -18,6 +18,7 @@ const Card: FC<ICard> = (props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [, setSaved] = useState(false);
   const { user } = useAuthContext();
+  // const navigate = useNavigate();
 
   const movieID = doc(db, "users", `${user?.email}`);
 
@@ -47,26 +48,28 @@ const Card: FC<ICard> = (props) => {
   };
 
   return (
-    <div
-      key={data?.id}
-      className="w-[160px] md:2-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2 "
-    >
-      <Link to={`/player/${data?.id}`}>
+    <>
+      <div
+        key={data?.id}
+        className="w-[160px] md:2-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2 "
+      >
         <img
-          className="w-full h-auto block"
+          className="w-full h-auto block z-50"
           src={Image500(data?.backdrop_path || "")}
           alt={data?.title || "-"}
         />
-      </Link>
-      <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white">
-        <p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center">
-          {data?.title}
-        </p>
-        <p className="absolute top-4 left-4 text-gray-400">
-          <p onClick={saveShow}>{like ? <Heart fill="red" /> : <Heart />}</p>
-        </p>
+        <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white">
+          <Link to={`/player/${data?.id}`}>
+            <p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center">
+              {data?.title}
+            </p>
+          </Link>
+          <p className="absolute top-4 left-4 text-gray-400">
+            <p onClick={saveShow}>{like ? <Heart fill="red" /> : <Heart />}</p>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
