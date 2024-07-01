@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import { ChevronLeftCircle, ChevronRightCircle, Trash2 } from "lucide-react";
 import useAuthContext from "../hooks/useAuthContext";
@@ -14,6 +14,7 @@ type movieFav = {
 const FavoriteMovie = () => {
   const [movies, setMovies] = useState<movieFav[]>([]);
   const { user } = useAuthContext();
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   const slider = document.getElementById("slider");
 
@@ -23,6 +24,18 @@ const FavoriteMovie = () => {
   const slideRight = () => {
     slider!.scrollLeft = slider!.scrollLeft + 500;
   };
+
+  const handleScroll = (event: WheelEvent) => {
+    event.preventDefault();
+    if (listRef.current) {
+      listRef.current.scrollLeft += event.deltaY;
+    }
+  };
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.addEventListener("wheel", handleScroll);
+    }
+  }, []);
 
   useEffect(() => {
     onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
@@ -37,6 +50,7 @@ const FavoriteMovie = () => {
       await updateDoc(movieRef, {
         savedShows: result,
       });
+      toast.info('Movie successfully remove from favorite list')
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -45,7 +59,6 @@ const FavoriteMovie = () => {
       }
     }
   };
-
   return (
     <>
       <h2 className="text-white font-bold md:text-xl p-4">My Shows</h2>
@@ -57,7 +70,8 @@ const FavoriteMovie = () => {
         />
         <div
           id={"slider"}
-          className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
+          className="w-screen h-full overflow-x-scroll whitespace-nowrap no-scrollbar scroll-smooth relative"
+          ref={listRef}
         >
           {movies.map((item) => (
             <div
