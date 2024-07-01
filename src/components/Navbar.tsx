@@ -14,7 +14,7 @@ const Navbar = () => {
     <div
       className={`flex bg-black items-center justify-between w-full px-2 md:px-10 py-2 z-10 sticky top-0`}
     >
-      <img className="h-16" onClick={() => navigate("/")} src={Logo} />
+      <img className="h-16 cursor-pointer" onClick={() => navigate("/")} src={Logo} />
       <div className="flex flex-shrink-0 md:gap-2">
         <form
           className={`flex-grow max-w-[400] ${
