@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
-import { ChevronLeftCircle, ChevronRightCircle, CrossIcon } from "lucide-react";
+import { ChevronLeftCircle, ChevronRightCircle, Trash2 } from "lucide-react";
 import useAuthContext from "../hooks/useAuthContext";
 import { db } from "../config/firebase";
 import { toast } from "react-toastify";
@@ -75,9 +75,9 @@ const FavoriteMovie = () => {
                 </p>
                 <p
                   onClick={() => deleteShow(item.id)}
-                  className="absolute text-gray-300 top-4 right-4"
+                  className="absolute text-red-500 top-4 right-4"
                 >
-                  <CrossIcon />
+                  <Trash2 />
                 </p>
               </div>
             </div>
